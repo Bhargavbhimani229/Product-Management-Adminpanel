@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import Aside from "../components/Aside";
 import Header from "../components/Header";
 
-const Form = () => {
+const Form = ({handleSubmit,handleChange,product,options}) => {
   return (
     <>
       <div className="wrapper">
@@ -65,61 +65,139 @@ const Form = () => {
               </div>
               <div className="row">
                 <div className="col-md-12">
-                  <div className="card">
-                    <div className="card-header">
-                      <div className="card-title">Form Elements</div>
-                    </div>
-                    <div className="card-body">
-                      <div className="row">
-                        <div className="col-md-6 col-lg-4">
-                          <div className="form-group">
-                            <label htmlFor="product-name">Product Name</label>
-                            <input
-                              type="text"
-                              className="form-control"
-                              id="product-name"
-                              name="product-name"
-                              placeholder="Enter Product Name"
-                            />
-                          </div>
-                           <div className="form-group">
-                            <label htmlFor="stock">Product Stock</label>
-                            <input
-                              type="text"
-                              className="form-control"
-                              id="stock"
-                              name="stock"
-                              placeholder="Enter Product stock"
-                            />
-                          </div>
-                           <div className="form-group">
-                            <label htmlFor="image">Image</label>
-                            <input
-                              type="file"
-                              className="form-control"
-                              id="image"
-                              name="image"
-                              placeholder="Enter Product Name"
-                            />
-                          </div>
-                           <div className="form-group">
-                            <label htmlFor="product-price">Product Price</label>
-                            <input
-                              type="text"
-                              className="form-control"
-                              id="price"
-                              name="price"
-                              placeholder="Enter Product price"
-                            />
+                  <form action="" method="post" onSubmit={handleSubmit}>
+                    <div className="card">
+                      <div className="card-header">
+                        <div className="card-title">Form Elements</div>
+                      </div>
+                      <div className="card-body">
+                        <div className="row">
+                          <div className="col-md-6 col-lg-4">
+                            <div className="form-group">
+                              <label htmlFor="product-name">Product Name</label>
+                              <input
+                                type="text"
+                                onChange={handleChange}
+                                value={product.pName || ""}
+                                className="form-control"
+                                id="pName"
+                                name="pName"
+                                placeholder="Enter Product Name"
+                              />
+                            </div>
+                            <div className="form-group">
+                              <label htmlFor="stock">Product Stock</label>
+                              <input
+                                type="text"
+                                onChange={handleChange}
+                                value={product.stock || ""}
+                                className="form-control"
+                                id="stock"
+                                name="stock"
+                                placeholder="Enter Product stock"
+                              />
+                            </div>
+                            <div className="form-group">
+                              <label htmlFor="product-price">
+                                Product Price
+                              </label>
+                              <input
+                                type="text"
+                                onChange={handleChange}
+                                value={product.price || ""}
+                                className="form-control"
+                                id="price"
+                                name="price"
+                                placeholder="Enter Product price"
+                              />
+                            </div>
+                            <div className="form-group">
+                              <label htmlFor="image">Image</label>
+                              <input
+                                type="file"
+                                onChange={handleChange}
+                                className="form-control"
+                                id="image"
+                                name="image"
+                                placeholder="Enter Product Image"
+                              />
+                            </div>
+                            <div className="form-group">
+                              <label htmlFor="content">Content</label>
+                              <textarea
+                                className="form-control"
+                                onChange={handleChange}
+                                value={product.content || ""}
+                                id="content"
+                                name="content"
+                                placeholder="Enter Product content"
+                              />
+                            </div>
+
+                            {/* checkbox */}
+                            <div className="form-group">
+                              <label>Product Options</label>
+                              <div className="form-check">
+                                <input
+                                  onChange={handleChange}
+                                  className="form-check-input"
+                                  type="checkbox"
+                                  id="featured"
+                                  name="options"
+                                  value="surat"
+                                  checked={options.includes("surat")? true : false }
+                                />
+                                <label
+                                  className="form-check-label"
+                                  htmlFor="featured"
+                                >
+                                  Surat
+                                </label>
+                              </div>
+                              <div className="form-check">
+                                <input
+                                  className="form-check-input"
+                                  onChange={handleChange}
+                                  type="checkbox"
+                                  id="new-arrival"
+                                  name="options"
+                                  value="rajkot"
+                                  checked={options.includes("rajkot")? true : false }
+                                />
+                                <label
+                                  className="form-check-label"
+                                  htmlFor="new-arrival"
+                                >
+                                  Rajkot
+                                </label>
+                              </div>
+                              <div className="form-check">
+                                <input
+                                  className="form-check-input"
+                                  type="checkbox"
+                                  onChange={handleChange}
+                                  id="on-sale"
+                                  name="options"
+                                  value="navsari"
+                                  checked={options.includes("navsari")? true : false }
+                                />
+                                <label
+                                  className="form-check-label"
+                                  htmlFor="on-sale"
+                                >
+                                  Navsari
+                                </label>
+                              </div>
+                            </div>
                           </div>
                         </div>
                       </div>
+                      <div className="card-action">
+                        <button className="btn btn-success">Submit</button>
+                        <button className="btn btn-danger">Cancel</button>
+                      </div>
                     </div>
-                    <div className="card-action">
-                      <button className="btn btn-success">Submit</button>
-                      <button className="btn btn-danger">Cancel</button>
-                    </div>
-                  </div>
+                  </form>
                 </div>
               </div>
             </div>
