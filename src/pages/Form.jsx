@@ -2,7 +2,14 @@ import React, { useState } from "react";
 import Aside from "../components/Aside";
 import Header from "../components/Header";
 
-const Form = ({handleSubmit,handleChange,product,options}) => {
+const Form = ({
+  handleSubmit,
+  handleChange,
+  product,
+  options,
+  imageRef,
+  error,
+}) => {
   return (
     <>
       <div className="wrapper">
@@ -64,7 +71,7 @@ const Form = ({handleSubmit,handleChange,product,options}) => {
                 </ul>
               </div>
               <div className="row">
-                <div className="col-md-12">
+                <div className="col-md-12 ">
                   <form action="" method="post" onSubmit={handleSubmit}>
                     <div className="card">
                       <div className="card-header">
@@ -84,11 +91,16 @@ const Form = ({handleSubmit,handleChange,product,options}) => {
                                 name="pName"
                                 placeholder="Enter Product Name"
                               />
+                              {error.pName && (
+                                <span className="text-danger">
+                                  {error.pName}
+                                </span>
+                              )}
                             </div>
                             <div className="form-group">
                               <label htmlFor="stock">Product Stock</label>
                               <input
-                                type="text"
+                                type="number"
                                 onChange={handleChange}
                                 value={product.stock || ""}
                                 className="form-control"
@@ -96,6 +108,11 @@ const Form = ({handleSubmit,handleChange,product,options}) => {
                                 name="stock"
                                 placeholder="Enter Product stock"
                               />
+                              {error.stock && (
+                                <span className="text-danger">
+                                  {error.stock}
+                                </span>
+                              )}
                             </div>
                             <div className="form-group">
                               <label htmlFor="product-price">
@@ -110,17 +127,28 @@ const Form = ({handleSubmit,handleChange,product,options}) => {
                                 name="price"
                                 placeholder="Enter Product price"
                               />
+                              {error.price && (
+                                <span className="text-danger">
+                                  {error.price}
+                                </span>
+                              )}
                             </div>
                             <div className="form-group">
-                              <label htmlFor="image">Image</label>
+                              <label>Image</label>
                               <input
                                 type="file"
-                                onChange={handleChange}
+                                onChange={handleChange || ""}
+                                ref={imageRef}
                                 className="form-control"
                                 id="image"
                                 name="image"
                                 placeholder="Enter Product Image"
                               />
+                              {error.image && (
+                                <span className="text-danger">
+                                  {error.image}
+                                </span>
+                              )}
                             </div>
                             <div className="form-group">
                               <label htmlFor="content">Content</label>
@@ -132,11 +160,24 @@ const Form = ({handleSubmit,handleChange,product,options}) => {
                                 name="content"
                                 placeholder="Enter Product content"
                               />
+                                {error.content && (
+                                <span className="text-danger">
+                                  {error.content}
+                                </span>
+                              )}
                             </div>
+
+                            {console.log("test",product)
+                            }
 
                             {/* checkbox */}
                             <div className="form-group">
-                              <label>Product Options</label>
+                              <label>Product Options</label>   <br />  
+                              {error.options && (
+                                <span className="text-danger">
+                                  {error.options}
+                                </span>
+                              )}
                               <div className="form-check">
                                 <input
                                   onChange={handleChange}
@@ -145,7 +186,9 @@ const Form = ({handleSubmit,handleChange,product,options}) => {
                                   id="featured"
                                   name="options"
                                   value="surat"
-                                  checked={options.includes("surat")? true : false }
+                                  checked={
+                                    options.includes("surat") ? true : false
+                                  }
                                 />
                                 <label
                                   className="form-check-label"
@@ -153,6 +196,7 @@ const Form = ({handleSubmit,handleChange,product,options}) => {
                                 >
                                   Surat
                                 </label>
+
                               </div>
                               <div className="form-check">
                                 <input
@@ -162,7 +206,9 @@ const Form = ({handleSubmit,handleChange,product,options}) => {
                                   id="new-arrival"
                                   name="options"
                                   value="rajkot"
-                                  checked={options.includes("rajkot")? true : false }
+                                  checked={
+                                    options.includes("rajkot") ? true : false
+                                  }
                                 />
                                 <label
                                   className="form-check-label"
@@ -179,7 +225,9 @@ const Form = ({handleSubmit,handleChange,product,options}) => {
                                   id="on-sale"
                                   name="options"
                                   value="navsari"
-                                  checked={options.includes("navsari")? true : false }
+                                  checked={
+                                    options.includes("navsari") ? true : false
+                                  }
                                 />
                                 <label
                                   className="form-check-label"
@@ -193,7 +241,7 @@ const Form = ({handleSubmit,handleChange,product,options}) => {
                         </div>
                       </div>
                       <div className="card-action">
-                        <button className="btn btn-success">Submit</button>
+                        <button className="btn btn-success">Submit</button> {" "}
                         <button className="btn btn-danger">Cancel</button>
                       </div>
                     </div>

@@ -2,7 +2,7 @@ import React from "react";
 import Aside from "../components/Aside";
 import Header from "../components/Header";
 
-const Table = ({ productList, handleDelete }) => {
+const Table = ({ productList, handleDelete ,handleEdit}) => {
   return (
     <>
       <div className="wrapper">
@@ -183,19 +183,7 @@ const Table = ({ productList, handleDelete }) => {
                               <th>Product Godwon</th>
                               <th style={{ width: "10%" }}>Action</th>
                             </tr>
-                          </thead>
-                          <tfoot>
-                            <tr>
-                              <th>#</th>
-                              <th>Product Name</th>
-                              <th>Product Stock</th>
-                              <th>Product Price</th>
-                              <th>Image</th>
-                              <th>Content</th>
-                              <th>Product Godwon</th>
-                              <th>Action</th>
-                            </tr>
-                          </tfoot>
+                          </thead>  
                           <tbody>
                             {productList.map((val, idx) => (
                               <tr key={idx}>
@@ -225,6 +213,7 @@ const Table = ({ productList, handleDelete }) => {
                                       title
                                       className="btn btn-link btn-primary btn-lg"
                                       data-original-title="Edit Task"
+                                      onClick={()=>handleEdit(val.id)}
                                     >
                                       <i className="fa fa-edit" />
                                     </button>
