@@ -3,6 +3,7 @@ import Home from "./pages/Home";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import Form from "./pages/Form";
 import Table from "./pages/Table";
+import axios from "axios";
 
 const App = () => {
   const [product, setProduct] = useState({});
@@ -13,13 +14,16 @@ const App = () => {
   const imageRef = useRef(null);
   const navigator = useNavigate();
 
+  const URL = "http://localhost:3000/Product";
   useEffect(() => {
-    let oldProduct = JSON.parse(localStorage.getItem("Products")) || [];
-    setProductList(oldProduct);
+    axios
+      .get(URL)
+      .then((res) => setProductList(res.data))
+      .catch((err) => console.error("Fetch error:", err));
   }, []);
 
   const handleChange = (e) => {
-    let { name, value, checked, files } = e.target;
+    const { name, value, checked, files } = e.target;
 
     if (name === "options") {
       let newList = [...options];
@@ -29,12 +33,12 @@ const App = () => {
         newList = newList.filter((item) => item !== value);
       }
       setOption(newList);
-      setProduct({ ...product, options: newList }); 
+      setProduct({ ...product, options: newList });
     } else if (name === "image") {
-      let file = files[0];
-      let reader = new FileReader();
+      const file = files[0];
+      const reader = new FileReader();
       reader.onloadend = () => {
-        let imageData = {
+        const imageData = {
           name: file.name,
           type: file.type,
           url: reader.result,
@@ -48,7 +52,7 @@ const App = () => {
   };
 
   const validation = () => {
-    let errors = {};
+    const errors = {};
     if (!product.pName) errors.pName = "Product name is required";
     if (!product.stock) errors.stock = "Stock is required";
     if (!product.price) errors.price = "Price is required";
@@ -60,40 +64,56 @@ const App = () => {
     setError(errors);
     return Object.keys(errors).length === 0;
   };
-  const handleSubmit = (e) => {
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validation()) return;
 
     if (isEdit) {
-      let updateList = productList.map((val) =>
-        val.id === isEdit ? { ...product, id: isEdit } : val
-      );
-      setProductList(updateList);
-      localStorage.setItem("Products", JSON.stringify(updateList));
-      setEdit(0);
+      try {
+        await axios.put(`${URL}/${isEdit}`, { ...product, id: isEdit });
+        const res = await axios.get(URL);
+        setProductList(res.data);
+        setEdit(0);
+      } catch (err) {
+        console.error("Update error:", err);
+      }
     } else {
-      const updatedList = [...productList, { ...product, id: Date.now() }];
-      setProductList(updatedList);
-      localStorage.setItem("Products", JSON.stringify(updatedList));
+      try {
+        await axios.post(URL, { ...product });
+        const res = await axios.get(URL);
+        setProductList(res.data);
+      } catch (err) {
+        console.error("Create error:", err);
+      }
     }
+
     setProduct({});
     setOption([]);
     setError({});
-    if (imageRef.current) imageRef.current.value = "";
+    imageRef.current.value = "";
   };
 
-  const handleDelete = (id) => {
-    let newData = productList.filter((item) => item.id !== id);
-    setProductList(newData);
-    localStorage.setItem("Products", JSON.stringify(newData));
+  const handleDelete = async (id) => {
+    try {
+      await axios.delete(`${URL}/${id}`);
+      const res = await axios.get(URL);
+      setProductList(res.data);
+    } catch (err) {
+      console.error("Delete error:", err);
+    }
   };
 
-  const handleEdit = (id) => {
-    let prod = productList.find((item) => item.id === id);
-    setProduct(prod);
-    setOption(prod.options || []);
-    setEdit(id);
-    navigator("/form");
+  const handleEdit = async (id) => {
+    try {
+      const res = await axios.get(`${URL}/${id}`);
+      setProduct(res.data);
+      setOption(res.data.options||[]);
+      setEdit(id);
+      navigator("/form");
+    } catch (err) {
+      console.error("Edit fetch error:", err);
+    }
   };
 
   return (

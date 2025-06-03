@@ -264,9 +264,9 @@ const Table = ({ productList, handleDelete ,handleEdit}) => {
                 </ul>
               </nav>
               <div className="copyright">
-                2024, made with <i className="fa fa-heart heart text-danger" />{" "}
+                2025, made with <i className="fa fa-heart heart text-danger" />{" "}
                 by
-                <a href="http://www.themekita.com">ThemeKita</a>
+                <a href="https://github.com/Bhargavbhimani229">Bhargav</a>
               </div>
               <div>
                 Distributed by

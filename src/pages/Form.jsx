@@ -160,19 +160,18 @@ const Form = ({
                                 name="content"
                                 placeholder="Enter Product content"
                               />
-                                {error.content && (
+                              {error.content && (
                                 <span className="text-danger">
                                   {error.content}
                                 </span>
                               )}
                             </div>
 
-                            {console.log("test",product)
-                            }
+                            {console.log("test", product)}
 
                             {/* checkbox */}
                             <div className="form-group">
-                              <label>Product Options</label>   <br />  
+                              <label>Product Options</label> <br />
                               {error.options && (
                                 <span className="text-danger">
                                   {error.options}
@@ -196,7 +195,6 @@ const Form = ({
                                 >
                                   Surat
                                 </label>
-
                               </div>
                               <div className="form-check">
                                 <input
@@ -241,7 +239,7 @@ const Form = ({
                         </div>
                       </div>
                       <div className="card-action">
-                        <button className="btn btn-success">Submit</button> {" "}
+                        <button className="btn btn-success">Submit</button>{" "}
                         <button className="btn btn-danger">Cancel</button>
                       </div>
                     </div>
@@ -274,9 +272,9 @@ const Form = ({
                 </ul>
               </nav>
               <div className="copyright">
-                2024, made with <i className="fa fa-heart heart text-danger" />{" "}
+                2025, made with <i className="fa fa-heart heart text-danger" />{" "}
                 by
-                <a href="http://www.themekita.com">ThemeKita</a>
+                <a href="https://github.com/Bhargavbhimani229">Bhargav</a>
               </div>
               <div>
                 Distributed by
