@@ -80,6 +80,7 @@ const Form = ({
                       <div className="card-body">
                         <div className="row">
                           <div className="col-md-6 col-lg-4">
+                            {/* Product Name */}
                             <div className="form-group">
                               <label htmlFor="product-name">Product Name</label>
                               <input
@@ -97,6 +98,8 @@ const Form = ({
                                 </span>
                               )}
                             </div>
+
+                            {/* Product Stock */}
                             <div className="form-group">
                               <label htmlFor="stock">Product Stock</label>
                               <input
@@ -114,6 +117,8 @@ const Form = ({
                                 </span>
                               )}
                             </div>
+
+                            {/* Product Price */}
                             <div className="form-group">
                               <label htmlFor="product-price">
                                 Product Price
@@ -133,6 +138,8 @@ const Form = ({
                                 </span>
                               )}
                             </div>
+
+                            {/* Image */}
                             <div className="form-group">
                               <label>Image</label>
                               <input
@@ -142,7 +149,6 @@ const Form = ({
                                 className="form-control"
                                 id="image"
                                 name="image"
-                                placeholder="Enter Product Image"
                               />
                               {error.image && (
                                 <span className="text-danger">
@@ -150,6 +156,8 @@ const Form = ({
                                 </span>
                               )}
                             </div>
+
+                            {/* Content */}
                             <div className="form-group">
                               <label htmlFor="content">Content</label>
                               <textarea
@@ -167,9 +175,67 @@ const Form = ({
                               )}
                             </div>
 
-                            {console.log("test", product)}
+                            {/* ⭐️ New Fields */}
+                            {/* Rating */}
+                            <div className="form-group">
+                              <label htmlFor="rating">Rating (out of 5)</label>
+                              <input
+                                type="number"
+                                onChange={handleChange}
+                                value={product.rating || ""}
+                                className="form-control"
+                                id="rating"
+                                name="rating"
+                                min="1"
+                                max="5"
+                                placeholder="Enter rating"
+                              />
+                              {error.rating && (
+                                <span className="text-danger">
+                                  {error.rating}
+                                </span>
+                              )}
+                            </div>
 
-                            {/* checkbox */}
+                            {/* Category */}
+                            <div className="form-group">
+                              <label htmlFor="category">Category</label>
+                              <input
+                                type="text"
+                                onChange={handleChange}
+                                value={product.category || ""}
+                                className="form-control"
+                                id="category"
+                                name="category"
+                                placeholder="Enter category"
+                              />
+                              {error.category && (
+                                <span className="text-danger">
+                                  {error.category}
+                                </span>
+                              )}
+                            </div>
+
+                            {/* Brand */}
+                            <div className="form-group">
+                              <label htmlFor="brand">Brand</label>
+                              <input
+                                type="text"
+                                onChange={handleChange}
+                                value={product.brand || ""}
+                                className="form-control"
+                                id="brand"
+                                name="brand"
+                                placeholder="Enter brand"
+                              />
+                              {error.brand && (
+                                <span className="text-danger">
+                                  {error.brand}
+                                </span>
+                              )}
+                            </div>
+
+                            {/* Checkbox Options */}
                             <div className="form-group">
                               <label>Product Options</label> <br />
                               {error.options && (
@@ -185,9 +251,7 @@ const Form = ({
                                   id="featured"
                                   name="options"
                                   value="surat"
-                                  checked={
-                                    options.includes("surat") ? true : false
-                                  }
+                                  checked={options.includes("surat")}
                                 />
                                 <label
                                   className="form-check-label"
@@ -204,9 +268,7 @@ const Form = ({
                                   id="new-arrival"
                                   name="options"
                                   value="rajkot"
-                                  checked={
-                                    options.includes("rajkot") ? true : false
-                                  }
+                                  checked={options.includes("rajkot")}
                                 />
                                 <label
                                   className="form-check-label"
@@ -223,9 +285,7 @@ const Form = ({
                                   id="on-sale"
                                   name="options"
                                   value="navsari"
-                                  checked={
-                                    options.includes("navsari") ? true : false
-                                  }
+                                  checked={options.includes("navsari")}
                                 />
                                 <label
                                   className="form-check-label"
@@ -238,8 +298,10 @@ const Form = ({
                           </div>
                         </div>
                       </div>
+
+                      {/* Form Footer */}
                       <div className="card-action">
-                        <button className="btn btn-success">Submit</button>{" "}
+                        <button className="btn btn-success">Submit</button>
                         <button className="btn btn-danger">Cancel</button>
                       </div>
                     </div>

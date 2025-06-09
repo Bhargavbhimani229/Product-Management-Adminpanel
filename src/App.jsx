@@ -1,9 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
-import Home from "./pages/Home";
 import { Route, Routes, useNavigate } from "react-router-dom";
+import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import Home from "./pages/Home";
 import Form from "./pages/Form";
 import Table from "./pages/Table";
-import axios from "axios";
+import Client from "./pages/Client";
 
 const App = () => {
   const [product, setProduct] = useState({});
@@ -15,6 +17,7 @@ const App = () => {
   const navigator = useNavigate();
 
   const URL = "http://localhost:3000/Product";
+
   useEffect(() => {
     axios
       .get(URL)
@@ -69,29 +72,26 @@ const App = () => {
     e.preventDefault();
     if (!validation()) return;
 
-    if (isEdit) {
-      try {
+    try {
+      if (isEdit) {
         await axios.put(`${URL}/${isEdit}`, { ...product, id: isEdit });
-        const res = await axios.get(URL);
-        setProductList(res.data);
-        setEdit(0);
-      } catch (err) {
-        console.error("Update error:", err);
-      }
-    } else {
-      try {
+        toast.success("Product Updated Successfully..!");
+      } else {
         await axios.post(URL, { ...product });
-        const res = await axios.get(URL);
-        setProductList(res.data);
-      } catch (err) {
-        console.error("Create error:", err);
+        toast.success("Product Added Successfully..!");
       }
-    }
 
-    setProduct({});
-    setOption([]);
-    setError({});
-    imageRef.current.value = "";
+      const res = await axios.get(URL);
+      setProductList(res.data);
+
+      setProduct({});
+      setOption([]);
+      setError({});
+      imageRef.current.value = "";
+      setEdit(0);
+    } catch (err) {
+      console.error("Submit error:", err);
+    }
   };
 
   const handleDelete = async (id) => {
@@ -99,6 +99,7 @@ const App = () => {
       await axios.delete(`${URL}/${id}`);
       const res = await axios.get(URL);
       setProductList(res.data);
+      toast.warn("Product Deleted Successfully..!");
     } catch (err) {
       console.error("Delete error:", err);
     }
@@ -108,7 +109,7 @@ const App = () => {
     try {
       const res = await axios.get(`${URL}/${id}`);
       setProduct(res.data);
-      setOption(res.data.options||[]);
+      setOption(res.data.options || []);
       setEdit(id);
       navigator("/form");
     } catch (err) {
@@ -143,7 +144,30 @@ const App = () => {
             />
           }
         />
+        <Route
+          path="/client"
+          element={
+            <Client
+              productList={productList}
+              handleDelete={handleDelete}
+              handleEdit={handleEdit}
+            />
+          }
+        />
       </Routes>
+
+      <ToastContainer
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick={false}
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+      />
     </>
   );
 };
