@@ -46,18 +46,6 @@ const ProductCard = ({ product, handleEdit, handleDelete, addToCart }) => {
       </div>
       <div className="card-footer d-flex justify-content-between">
         <button
-          className="btn btn-primary btn-sm"
-          onClick={() => handleEdit(product.id)}
-        >
-          Edit
-        </button>
-        <button
-          className="btn btn-danger btn-sm"
-          onClick={() => handleDelete(product.id)}
-        >
-          Delete
-        </button>
-        <button
           className="btn btn-success btn-sm"
           onClick={() => addToCart(product)}
         >
