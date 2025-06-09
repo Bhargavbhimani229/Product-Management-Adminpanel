@@ -2,34 +2,36 @@ import React from "react";
 
 const ProductCard = ({ product, handleEdit, handleDelete, addToCart }) => {
   return (
-    <div className="card h-100 shadow-sm">
+    <div className="card h-100 shadow rounded-4 border-0">
       <img
         src={product.image?.url}
-        className="card-img-top"
+        className="card-img-top p-3"
         alt={product.pName}
         style={{ height: "200px", objectFit: "contain" }}
       />
-      <div className="card-body">
-        <h5 className="card-title">{product.pName}</h5>
-        <p className="card-text mb-1">
-          <strong>Price:</strong> {product.price}
-        </p>
-        <p className="card-text mb-1">
-          <strong>Stock:</strong> {product.stock}
-        </p>
-        <p className="card-text mb-1">
-          <strong>Category:</strong> {product.category}
-        </p>
-        <p className="card-text mb-1">
-          <strong>Brand:</strong> {product.brand}
-        </p>
-        <p className="card-text mb-1">
-          <strong>Godown:</strong> {product.options?.join(", ")}
-        </p>
-        <p className="card-text">
-          <strong>Content:</strong> {product.content}
-        </p>
-        <div>
+      <div className="card-body d-flex flex-column">
+        <h2 className="card-title fw-semibold text-dark">{product.pName}</h2>
+
+        <ul className="list-unstyled small text-secondary mb-3">
+          <li style={{ fontWeight: "bold", fontSize: "1.5rem", color: "#333" }}>
+            Price:{" "}
+            <span style={{ fontWeight: "normal", color: "#555" }}>
+              ₹{product.price}
+            </span>
+          </li>
+
+          <li>
+            <strong>Stock:</strong> {product.stock}
+          </li>
+          <li>
+            <strong>Brand:</strong> {product.brand}
+          </li>
+          <li>
+            <strong>Content:</strong> {product.content}
+          </li>
+        </ul>
+
+        <div className="mb-3">
           <strong>Rating:</strong>{" "}
           {Array.from({ length: 5 }, (_, i) => (
             <span
@@ -43,14 +45,15 @@ const ProductCard = ({ product, handleEdit, handleDelete, addToCart }) => {
             </span>
           ))}
         </div>
-      </div>
-      <div className="card-footer d-flex justify-content-between">
-        <button
-          className="btn btn-success btn-sm"
-          onClick={() => addToCart(product)}
-        >
-          Add to Cart
-        </button>
+
+        <div className="mt-auto d-flex justify-content-between">
+          <button
+            className="btn btn-success btn-sm"
+            onClick={() => addToCart(product)}
+          >
+            Add to Cart
+          </button>
+        </div>
       </div>
     </div>
   );

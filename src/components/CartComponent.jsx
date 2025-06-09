@@ -1,7 +1,10 @@
 import React from "react";
 
 const CartComponent = ({ cart, removeFromCart, updateQty }) => {
-  const total = cart.reduce((acc, item) => acc + item.qty * parseFloat(item.price || 0), 0);
+  const total = cart.reduce(
+    (acc, item) => acc + item.qty * parseFloat(item.price || 0),
+    0
+  );
 
   return (
     <div className="card mb-4 shadow-sm">
@@ -39,6 +42,7 @@ const CartComponent = ({ cart, removeFromCart, updateQty }) => {
               >
                 +
               </button>
+
               <button
                 className="btn btn-sm btn-danger ms-3"
                 onClick={() => removeFromCart(item.id)}
